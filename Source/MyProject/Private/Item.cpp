@@ -5,6 +5,7 @@
 #include "DrawDebugHelpers.h"
 #include "MyProject/DebugMacros.h"
 #include "Components/SphereComponent.h"
+#include "Characters/MainCharacter.h"
 
 
 // Sets default values
@@ -44,15 +45,19 @@ float AItem::TransformedCos()
 
 void AItem::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	const FString OtherActorName = OtherActor->GetName();
-	if (GEngine)
+	AMainCharacter* MainCharacter = Cast<AMainCharacter>(OtherActor);
+	if (MainCharacter)
 	{
-		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, OtherActorName);
+		MainCharacter->SetOVerlappingItem(this);
 	}
 }
 void AItem::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, FString("EndOverlapEvent"));
+	AMainCharacter* MainCharacter = Cast<AMainCharacter>(OtherActor);
+	if (MainCharacter)
+	{
+		MainCharacter->SetOVerlappingItem(nullptr);
+	}
 }
 
 // Called every frame
