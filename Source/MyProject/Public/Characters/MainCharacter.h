@@ -23,6 +23,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	/*
+		Callbacks for input
+	*/
+
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void Turn(float Value);
@@ -30,13 +34,29 @@ public:
 	void EKeyPressed(); 
 	void Attack();
 
+	/*
+		Play montage functions
+	*/
+
+	void PlayingAttackMontage();
+
+	UFUNCTION(BlueprintCallable)
+	void AttackEnd();
+	bool CanAttack();
+
 protected:
 
 	virtual void BeginPlay() override;
 
 private:
 
+	/*
+		Default states for character
+	*/
 	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	EActionState ActionState = EActionState::EAS_Unoccupied;
 
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArm;

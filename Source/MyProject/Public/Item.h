@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -8,6 +7,11 @@
 
 class USphereComponent;
 
+enum class EItemState : uint8
+{
+	EIS_Hovering,
+	EIS_Equipped
+};
 
 UCLASS()
 class MYPROJECT_API AItem : public AActor
@@ -15,11 +19,9 @@ class MYPROJECT_API AItem : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AItem();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintPure)
@@ -45,11 +47,14 @@ protected:
 	virtual void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor*  OtherActor,
 		UPrimitiveComponent*  OtherComp, int32 OtherBodyIndex);
 
+	void AddHovering();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* ItemMesh;
 
+	EItemState ItemState = EItemState::EIS_Hovering;
+
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 private:

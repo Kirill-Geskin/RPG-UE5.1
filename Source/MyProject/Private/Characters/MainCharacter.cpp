@@ -64,6 +64,7 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void AMainCharacter::MoveForward(float Value)
 {
+	if (ActionState == EActionState::EAS_Attacking) return;
 	if ((Controller != nullptr) && (Value != 0.f))
 	{
 		const FRotator ControlRotation = GetControlRotation();
@@ -108,11 +109,26 @@ void AMainCharacter::EKeyPressed()
 
 void AMainCharacter::Attack()
 {
+	if (CanAttack())
+	{
+		PlayingAttackMontage();
+		ActionState = EActionState::EAS_Attacking;
+	}
+}
+
+bool AMainCharacter::CanAttack()
+{
+	return ActionState == EActionState::EAS_Unoccupied &&
+		CharacterState != ECharacterState::ECS_Unequipped;
+}
+
+void AMainCharacter::PlayingAttackMontage()
+{ 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && AttackMontage)
 	{
 		AnimInstance->Montage_Play(AttackMontage);
-		int32 Selection = FMath::RandRange(0, 2);
+		const int32 Selection = FMath::RandRange(0, 2);
 		FName SectionName = FName();
 		switch (Selection)
 		{
@@ -131,4 +147,11 @@ void AMainCharacter::Attack()
 		AnimInstance->Montage_JumpToSection(SectionName, AttackMontage);
 	}
 }
+
+void AMainCharacter::AttackEnd()
+{
+	ActionState = EActionState::EAS_Unoccupied;
+}
+
+
 
