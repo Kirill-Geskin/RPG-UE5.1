@@ -11,6 +11,7 @@ class UCameraComponent;
 class UGroomComponent;
 class AItem;
 class UAnimMontage;
+class AWeapon;
 
 UCLASS()
 class MYPROJECT_API AMainCharacter : public ACharacter
@@ -39,10 +40,14 @@ public:
 	*/
 
 	void PlayingAttackMontage();
+	void PlayingEquipMontage(FName SectionName);
 
 	UFUNCTION(BlueprintCallable)
 	void AttackEnd();
+	
 	bool CanAttack();
+	bool CanDisarm();
+	bool CanArm();
 
 protected:
 
@@ -73,12 +78,18 @@ private:
 	UPROPERTY(VisibleInstanceOnly)
 	AItem* OverlappingItem;
 
+	UPROPERTY(VisibleAnywhere, Category = "Weapon")
+	AWeapon* EquippedWeapon;
+
 	/*
 		Animation montages
 	*/
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* AttackMontage;
+
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage* EquipMontage;
 
 public:
 	
