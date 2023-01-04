@@ -1,13 +1,35 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "Weapons/Weapon.h"
 #include "Characters/MainCharacter.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
+
+
+AWeapon::AWeapon()
+{
+	WeaponBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Weapon Box"));
+	WeaponBox->SetupAttachment(GetRootComponent());
+}
 
 void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
 {
 	AttachMeshToSocket(InParent, InSocketName);
 	ItemState = EItemState::EIS_Equipped;
+	if (EquipSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			EquipSound,
+			GetActorLocation()
+			);
+	}
+	if (Sphere)
+	{
+		Sphere->SetCollisionEnabled(ECollisionEnabled::NoCollision); // We disable collisions for the weapon mesh after pickup
+
+	}
+	
 }
 
 void AWeapon::AttachMeshToSocket(USceneComponent* InParent, const FName& InSocketName)
