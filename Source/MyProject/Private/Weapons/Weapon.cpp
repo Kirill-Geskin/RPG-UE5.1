@@ -10,7 +10,7 @@ AWeapon::AWeapon()
 {
 	WeaponBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Weapon Box"));
 	WeaponBox->SetupAttachment(GetRootComponent());
-	WeaponBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	WeaponBox->SetCollisionEnabled(ECollisionEnabled::NoCollision); // NoCollision - because we only need collision on hit
 	WeaponBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap); //enabled all channel for Overlaping in collision preset option 
 	WeaponBox->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore); // set ignore only for Pawn channel
 
