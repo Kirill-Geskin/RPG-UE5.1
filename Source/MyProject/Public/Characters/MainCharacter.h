@@ -43,7 +43,7 @@ public:
 	*/
 
 	void PlayingAttackMontage();
-	void PlayingEquipMontage(FName SectionName);
+	void PlayingEquipMontage(const FName& SectionName);
 
 	UFUNCTION(BlueprintCallable)
 	void AttackEnd();

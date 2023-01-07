@@ -209,7 +209,7 @@ void AMainCharacter::PlayingAttackMontage()
 	}
 }
 
-void AMainCharacter::PlayingEquipMontage(FName SectionName)
+void AMainCharacter::PlayingEquipMontage(const FName& SectionName)
 {
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && EquipMontage)
