@@ -22,6 +22,7 @@ public:
 	AWeapon();
 	void Equip(USceneComponent* InParent, FName InSocketName);
 	void AttachMeshToSocket(USceneComponent* InParent, const FName& InSocketName);
+	TArray<AActor*> IgnoreActors;
 
 protected:
 
@@ -40,16 +41,18 @@ protected:
 private:
 
 	UPROPERTY(EditAnywhere, Category = "Weapon Properties")
-		USoundBase* EquipSound; // USoundBase is the parent class for que and metasound as well  
+	USoundBase* EquipSound; // USoundBase is the parent class for que and metasound as well  
 
 	UPROPERTY(VisibleAnywhere, Category = "Weapon Properties")
-		UBoxComponent* WeaponBox;
+	UBoxComponent* WeaponBox;
 
 	UPROPERTY(VisibleAnywhere)
-		USceneComponent* BoxTraceStart;
+	USceneComponent* BoxTraceStart;
 
 	UPROPERTY(VisibleAnywhere)
-		USceneComponent* BoxTraceEnd;
+	USceneComponent* BoxTraceEnd;
+
+
 
 public:
 
