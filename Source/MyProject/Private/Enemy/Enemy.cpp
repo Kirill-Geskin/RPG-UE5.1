@@ -5,6 +5,7 @@
 #include "MyProject/DebugMacros.h"
 #include "Animation/AnimMontage.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 AEnemy::AEnemy()
 {
@@ -45,9 +46,26 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AEnemy::GetHit(const FVector& ImpactPoint)
 {
-	DRAW_SPHERE_COLOR(ImpactPoint, FColor::Orange);
+	//DRAW_SPHERE_COLOR(ImpactPoint, FColor::Orange);
 
 	DirectionalHitReact(ImpactPoint);
+
+	if (HitSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			HitSound, // metasound in UE 
+			ImpactPoint
+		);
+	}
+	if (HitParticles)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(
+			GetWorld(),
+			HitParticles,
+			ImpactPoint
+		);
+	}
 }
 
 void AEnemy::DirectionalHitReact(const FVector& ImpactPoint)
@@ -84,7 +102,7 @@ void AEnemy::DirectionalHitReact(const FVector& ImpactPoint)
 	}
 
 	PlayingHitReactMontage(Section);
-
+	/*
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + CrossProduct * 100.f, 5.f, FColor::Blue, 5.f);
 
 	if (GEngine)
@@ -93,5 +111,6 @@ void AEnemy::DirectionalHitReact(const FVector& ImpactPoint)
 	}
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Forward * 60.f, 5.f, FColor::Red, 5.f);
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 60.f, 5.f, FColor::Green, 5.f);
+	*/
 }
 

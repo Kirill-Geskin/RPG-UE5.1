@@ -84,7 +84,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 
 	UKismetSystemLibrary::BoxTraceSingle(this, TraceStart, TraceEnd, FVector(5.f, 5.f, 5.f),
 	BoxTraceStart->GetComponentRotation(), ETraceTypeQuery::TraceTypeQuery1, false, ActorsToIgnore,
-	EDrawDebugTrace::ForDuration, BoxTraceHit, true);
+	EDrawDebugTrace::None, BoxTraceHit, true);
 	
 	if (BoxTraceHit.GetActor())
 	{
