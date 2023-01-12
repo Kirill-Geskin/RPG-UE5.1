@@ -19,5 +19,6 @@ class MYPROJECT_API IHitInterface
 	GENERATED_BODY()
 
 public:
-	virtual void GetHit(const FVector& ImpactPoint) = 0; // pure virtual; Added input param for box trace from AWeapon class
+	UFUNCTION(BlueprintNativeEvent)
+	void GetHit(const FVector& ImpactPoint); // Added input param for box trace from AWeapon class
 };
