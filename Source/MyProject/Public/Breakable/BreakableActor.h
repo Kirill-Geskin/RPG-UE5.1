@@ -7,6 +7,7 @@
 #include "BreakableActor.generated.h"
 
 class UGeometryCollectionComponent;
+class APickup_Treasure;
 
 UCLASS()
 class MYPROJECT_API ABreakableActor : public AActor, public IHitInterface
@@ -24,8 +25,18 @@ protected:
 
 	virtual void BeginPlay() override;
 
-private:	
 
 	UPROPERTY(VisibleAnyWhere)
 	UGeometryCollectionComponent* GeometryCollection;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	class UCapsuleComponent* Capsule;
+
+private:	
+
+
+	//TSubclassOf is a wraper. selection much more limited becouse we specify a treasure class
+	UPROPERTY(EditAnywhere, Category = "Breakable Properties")
+	TSubclassOf<APickup_Treasure> TreasureClass;
+
 };
