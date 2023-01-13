@@ -25,7 +25,6 @@ protected:
 
 	virtual void BeginPlay() override;
 
-
 	UPROPERTY(VisibleAnyWhere)
 	UGeometryCollectionComponent* GeometryCollection;
 
@@ -34,9 +33,9 @@ protected:
 
 private:	
 
-
 	//TSubclassOf is a wraper. selection much more limited becouse we specify a treasure class
 	UPROPERTY(EditAnywhere, Category = "Breakable Properties")
-	TSubclassOf<APickup_Treasure> TreasureClass;
+	TArray<TSubclassOf<APickup_Treasure>> TreasureClasses;
+	 
 
 };
