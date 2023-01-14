@@ -6,6 +6,7 @@
 #include "Item.generated.h"
 
 class USphereComponent;
+class UNiagaraComponent;
 
 enum class EItemState : uint8
 {
@@ -56,6 +57,9 @@ protected:
 	USphereComponent* Sphere;
 
 	EItemState ItemState = EItemState::EIS_Hovering;
+
+	UPROPERTY(EditAnywhere)
+	UNiagaraComponent* EmbersEffect;
 
 public:	
 	virtual void Tick(float DeltaTime) override;

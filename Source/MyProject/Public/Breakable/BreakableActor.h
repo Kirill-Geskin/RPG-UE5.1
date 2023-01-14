@@ -7,7 +7,7 @@
 #include "BreakableActor.generated.h"
 
 class UGeometryCollectionComponent;
-class APickup_Treasure;
+//class APickup_Treasure;
 
 UCLASS()
 class MYPROJECT_API ABreakableActor : public AActor, public IHitInterface
@@ -35,7 +35,7 @@ private:
 
 	//TSubclassOf is a wraper. selection much more limited becouse we specify a treasure class
 	UPROPERTY(EditAnywhere, Category = "Breakable Properties")
-	TArray<TSubclassOf<APickup_Treasure>> TreasureClasses;
-	 
+	TArray<TSubclassOf<class APickup_Treasure>> TreasureClasses; 
 
+	bool bBroken = false; // solving the problem with an infinite loop after hit
 };
