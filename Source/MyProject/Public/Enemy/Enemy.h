@@ -7,6 +7,8 @@
 #include "Enemy.generated.h"
 
 class UAnimMontage;
+class UAttributeComponent;
+class UWidgetComponent;
 
 UCLASS()
 class MYPROJECT_API AEnemy : public ACharacter, public IHitInterface
@@ -27,6 +29,13 @@ protected:
 
 
 private:
+
+	UPROPERTY(VisibleAnywhere)
+	UWidgetComponent* HealthBarWidget;
+
+	UPROPERTY(VisibleAnywhere)
+	UAttributeComponent* Attributes;
+
 	/*
 		Animation montages
 	*/
