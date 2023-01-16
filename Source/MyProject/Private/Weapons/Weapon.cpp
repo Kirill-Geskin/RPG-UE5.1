@@ -2,9 +2,9 @@
 #include "Weapons/Weapon.h"
 #include "Characters/MainCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
-#include "Kismet/KismetSystemLibrary.h"
 #include "Interfaces/HitInterface.h"
 #include "NiagaraComponent.h"
 
@@ -31,8 +31,11 @@ void AWeapon::BeginPlay()
 
 }
 
-void AWeapon::Equip(USceneComponent* InParent, FName InSocketName)
+void AWeapon::Equip(USceneComponent* InParent, FName InSocketName, AActor* NewOwner, APawn* NewInstigator)
 {
+	SetOwner(NewOwner);
+	SetInstigator(NewInstigator);
+	// SetOwner() and SetInstigator() way to link up MainCharacter with the weapon 
 	AttachMeshToSocket(InParent, InSocketName);
 	ItemState = EItemState::EIS_Equipped;
 	if (EquipSound)
@@ -100,6 +103,14 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		IgnoreActors.AddUnique(BoxTraceHit.GetActor());
 		
 		CreateFields(BoxTraceHit.ImpactPoint);
+
+		UGameplayStatics::ApplyDamage(
+			BoxTraceHit.GetActor(), 
+			Damage,
+			GetInstigator()->GetController(),
+			this,
+			UDamageType::StaticClass()
+		);
 	}
 }
  

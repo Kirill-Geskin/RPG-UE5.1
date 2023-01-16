@@ -6,12 +6,18 @@
 #include "Components/WidgetComponent.h"
 #include "HealtBarComponent.generated.h"
 
-/**
- * 
- */
+class UHealtBar;
+
 UCLASS()
 class MYPROJECT_API UHealtBarComponent : public UWidgetComponent
 {
 	GENERATED_BODY()
+
+public:
+	void SetHealthPercent(float Percent);
+private:
+	UPROPERTY()
+	UHealtBar* HealthBarWidget;
+
 	
 };

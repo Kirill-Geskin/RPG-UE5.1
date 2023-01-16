@@ -8,7 +8,7 @@
 
 class UAnimMontage;
 class UAttributeComponent;
-class UWidgetComponent;
+class UHealtBarComponent;
 
 UCLASS()
 class MYPROJECT_API AEnemy : public ACharacter, public IHitInterface
@@ -20,9 +20,10 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	virtual void GetHit_Implementation(const FVector& ImpactPoint) override;
 	void DirectionalHitReact(const FVector& ImpactPoint);
+
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -31,7 +32,7 @@ protected:
 private:
 
 	UPROPERTY(VisibleAnywhere)
-	UWidgetComponent* HealthBarWidget;
+	UHealtBarComponent* HealthBarWidget;
 
 	UPROPERTY(VisibleAnywhere)
 	UAttributeComponent* Attributes;
