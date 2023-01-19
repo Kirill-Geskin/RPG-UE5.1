@@ -3,7 +3,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Interfaces/HitInterface.h" // this include for inheritance from HitInterface class 
+#include "Interfaces/HitInterface.h" // this include for inheritance from HitInterface 
+#include "Characters/CharacterTypes.h"
 #include "Enemy.generated.h"
 
 class UAnimMontage;
@@ -16,6 +17,7 @@ class MYPROJECT_API AEnemy : public ACharacter, public IHitInterface
 	GENERATED_BODY()
 
 public:
+
 	AEnemy();
 
 	virtual void Tick(float DeltaTime) override;
@@ -26,8 +28,13 @@ public:
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 protected:
+
 	virtual void BeginPlay() override;
 
+	void Die();
+
+	UPROPERTY(BlueprintReadOnly)
+	EDeathPose DeathPose = EDeathPose::EDP_Alive;
 
 private:
 
@@ -44,6 +51,13 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Montages)
 	UAnimMontage* HitReactMontage;
 
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage* DeathMontage;
+
+	/*
+		Sound and particles
+	*/
+
 	UPROPERTY(EditAnywhere, Category = Sounds)
 	USoundBase* HitSound; // for metasound
 
@@ -56,4 +70,5 @@ private:
 
 	void PlayingHitReactMontage(const FName &SectionName);
 
+	
 };

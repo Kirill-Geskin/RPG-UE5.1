@@ -11,9 +11,6 @@ class UHitInterface : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
 class MYPROJECT_API IHitInterface
 {
 	GENERATED_BODY()
