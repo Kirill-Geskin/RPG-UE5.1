@@ -10,6 +10,7 @@
 class UAnimMontage;
 class UAttributeComponent;
 class UHealtBarComponent;
+class AAIController;
 
 UCLASS()
 class MYPROJECT_API AEnemy : public ACharacter, public IHitInterface
@@ -63,6 +64,29 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = VisualEffects)
 	UParticleSystem* HitParticles; // for cascade partical sys
+
+	/*
+		Combat target 
+	*/
+
+	UPROPERTY()
+	AActor* CombatTarget;
+
+	UPROPERTY(EditAnywhere)
+	double CombatRadius = 500.0f;
+
+	/*
+		AI Navigation
+	*/
+
+	UPROPERTY()
+	AAIController* EnemyController;
+
+	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
+	AActor* PatrolTarget;
+
+	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
+	TArray<AActor*> PatrolTargets;
 
 	/*
 		Play montage functions
